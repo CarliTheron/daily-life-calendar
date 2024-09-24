@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Calendar } from '@/components/Calendar';
 import { TaskList } from '@/components/TaskList';
 import { TaskForm } from '@/components/TaskForm';
+import { BusSchedule } from '@/components/BusSchedule';
 import { CalendarDays } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -49,6 +50,7 @@ const Index = () => {
           >
             <h2 className="text-2xl font-semibold text-gray-800">Select Date</h2>
             <Calendar selectedDate={selectedDate} onChange={setSelectedDate} />
+            <BusSchedule />
           </motion.div>
           <motion.div 
             initial={{ x: 50, opacity: 0 }}
