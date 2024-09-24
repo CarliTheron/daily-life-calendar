@@ -3,6 +3,7 @@ import { Calendar } from '@/components/Calendar';
 import { TaskList } from '@/components/TaskList';
 import { TaskForm } from '@/components/TaskForm';
 import { BusSchedule } from '@/components/BusSchedule';
+import { UserLevel } from '@/components/UserLevel';
 import { CalendarDays, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -14,6 +15,10 @@ const Index = () => {
     { id: 2, line: '202', destination: 'Maid Cafe', departureTime: '08:15' },
     { id: 3, line: '303', destination: 'Akihabara', departureTime: '08:30' },
   ]);
+  const [level, setLevel] = useState(1);
+  const [experience, setExperience] = useState(0);
+
+  const experienceToNextLevel = level * 100;
 
   const addTask = (newTask) => {
     setTasks([...tasks, { ...newTask, date: selectedDate }]);
@@ -21,6 +26,16 @@ const Index = () => {
 
   const deleteTask = (taskId) => {
     setTasks(tasks.filter(task => task.id !== taskId));
+  };
+
+  const completeTask = (taskId) => {
+    setTasks(tasks.filter(task => task.id !== taskId));
+    const newExperience = experience + 50;
+    setExperience(newExperience);
+    if (newExperience >= experienceToNextLevel) {
+      setLevel(level + 1);
+      setExperience(newExperience - experienceToNextLevel);
+    }
   };
 
   const addBusSchedule = (newSchedule) => {
@@ -67,6 +82,7 @@ const Index = () => {
             transition={{ delay: 0.4, duration: 0.5 }}
             className="space-y-6"
           >
+            <UserLevel level={level} experience={experience} experienceToNextLevel={experienceToNextLevel} />
             <h2 className="text-2xl font-semibold text-anime-pink flex items-center">
               <CalendarDays className="mr-2 text-anime-blue" />
               Select Your Adventure Day
@@ -88,7 +104,7 @@ const Index = () => {
             <h2 className="text-2xl font-semibold text-anime-green">
               Quests for {selectedDate.toDateString()}
             </h2>
-            <TaskList tasks={filteredTasks} onDeleteTask={deleteTask} />
+            <TaskList tasks={filteredTasks} onDeleteTask={deleteTask} onCompleteTask={completeTask} />
             <TaskForm onAddTask={addTask} />
           </motion.div>
         </div>
