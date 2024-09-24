@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Calendar } from '@/components/Calendar';
 import { TaskList } from '@/components/TaskList';
 import { TaskForm } from '@/components/TaskForm';
@@ -17,8 +17,15 @@ const Index = () => {
     setTasks(tasks.filter(task => task.id !== taskId));
   };
 
-  const filteredTasks = tasks.filter(task => 
-    task.date.toDateString() === selectedDate.toDateString()
+  const filteredTasks = useMemo(() => 
+    tasks.filter(task => task.date.toDateString() === selectedDate.toDateString()),
+    [tasks, selectedDate]
+  );
+
+  const daysWithTasks = useMemo(() => 
+    [...new Set(tasks.map(task => task.date.toDateString()))]
+      .map(dateString => new Date(dateString)),
+    [tasks]
   );
 
   return (
@@ -48,7 +55,11 @@ const Index = () => {
             className="space-y-6"
           >
             <h2 className="text-2xl font-semibold text-gray-800">Select Date</h2>
-            <Calendar selectedDate={selectedDate} onChange={setSelectedDate} />
+            <Calendar 
+              selectedDate={selectedDate} 
+              onChange={setSelectedDate} 
+              daysWithTasks={daysWithTasks}
+            />
           </motion.div>
           <motion.div 
             initial={{ x: 50, opacity: 0 }}
