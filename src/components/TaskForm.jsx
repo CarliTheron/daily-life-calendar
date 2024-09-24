@@ -27,13 +27,13 @@ export const TaskForm = ({ onAddTask }) => {
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="Enter a new task"
-        className="flex-grow border-indigo-200 focus:ring-indigo-500"
+        placeholder="Enter a new quest"
+        className="flex-grow border-anime-blue focus:ring-anime-pink"
       />
       <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-        <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700 text-white">
+        <Button type="submit" className="bg-anime-green hover:bg-anime-blue text-white">
           <PlusCircle className="h-4 w-4 mr-2" />
-          Add Task
+          Add Quest
         </Button>
       </motion.div>
     </motion.form>
