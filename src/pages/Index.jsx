@@ -11,9 +11,9 @@ const Index = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [tasks, setTasks] = useState([]);
   const [busSchedules, setBusSchedules] = useState([
-    { id: 1, line: '101', destination: 'Anime Convention', departureTime: '08:00' },
-    { id: 2, line: '202', destination: 'Maid Cafe', departureTime: '08:15' },
-    { id: 3, line: '303', destination: 'Akihabara', departureTime: '08:30' },
+    { id: 1, line: '101', destination: 'Anime Convention', departureTime: '08:00', isFavorite: false },
+    { id: 2, line: '202', destination: 'Maid Cafe', departureTime: '08:15', isFavorite: false },
+    { id: 3, line: '303', destination: 'Akihabara', departureTime: '08:30', isFavorite: false },
   ]);
   const [level, setLevel] = useState(1);
   const [experience, setExperience] = useState(0);
@@ -39,17 +39,23 @@ const Index = () => {
   };
 
   const addBusSchedule = (newSchedule) => {
-    setBusSchedules([...busSchedules, newSchedule]);
+    setBusSchedules([...busSchedules, { ...newSchedule, isFavorite: false }]);
   };
 
   const editBusSchedule = (updatedSchedule) => {
     setBusSchedules(busSchedules.map(schedule => 
-      schedule.id === updatedSchedule.id ? updatedSchedule : schedule
+      schedule.id === updatedSchedule.id ? { ...updatedSchedule, isFavorite: schedule.isFavorite } : schedule
     ));
   };
 
   const deleteBusSchedule = (scheduleId) => {
     setBusSchedules(busSchedules.filter(schedule => schedule.id !== scheduleId));
+  };
+
+  const toggleFavoriteBusSchedule = (scheduleId) => {
+    setBusSchedules(busSchedules.map(schedule =>
+      schedule.id === scheduleId ? { ...schedule, isFavorite: !schedule.isFavorite } : schedule
+    ));
   };
 
   const filteredTasks = tasks.filter(task => 
@@ -93,6 +99,7 @@ const Index = () => {
               onAddSchedule={addBusSchedule}
               onEditSchedule={editBusSchedule}
               onDeleteSchedule={deleteBusSchedule}
+              onToggleFavorite={toggleFavoriteBusSchedule}
             />
           </motion.div>
           <motion.div 
