@@ -9,6 +9,11 @@ import { motion } from 'framer-motion';
 const Index = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [tasks, setTasks] = useState([]);
+  const [busSchedules, setBusSchedules] = useState([
+    { id: 1, line: '101', destination: 'Anime Convention', departureTime: '08:00' },
+    { id: 2, line: '202', destination: 'Maid Cafe', departureTime: '08:15' },
+    { id: 3, line: '303', destination: 'Akihabara', departureTime: '08:30' },
+  ]);
 
   const addTask = (newTask) => {
     setTasks([...tasks, { ...newTask, date: selectedDate }]);
@@ -16,6 +21,20 @@ const Index = () => {
 
   const deleteTask = (taskId) => {
     setTasks(tasks.filter(task => task.id !== taskId));
+  };
+
+  const addBusSchedule = (newSchedule) => {
+    setBusSchedules([...busSchedules, newSchedule]);
+  };
+
+  const editBusSchedule = (updatedSchedule) => {
+    setBusSchedules(busSchedules.map(schedule => 
+      schedule.id === updatedSchedule.id ? updatedSchedule : schedule
+    ));
+  };
+
+  const deleteBusSchedule = (scheduleId) => {
+    setBusSchedules(busSchedules.filter(schedule => schedule.id !== scheduleId));
   };
 
   const filteredTasks = tasks.filter(task => 
@@ -53,7 +72,12 @@ const Index = () => {
               Select Your Adventure Day
             </h2>
             <Calendar selectedDate={selectedDate} onChange={setSelectedDate} />
-            <BusSchedule />
+            <BusSchedule 
+              schedules={busSchedules}
+              onAddSchedule={addBusSchedule}
+              onEditSchedule={editBusSchedule}
+              onDeleteSchedule={deleteBusSchedule}
+            />
           </motion.div>
           <motion.div 
             initial={{ x: 50, opacity: 0 }}
