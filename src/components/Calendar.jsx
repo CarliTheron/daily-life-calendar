@@ -1,6 +1,6 @@
 import React from 'react';
-import { Calendar as CalendarUI } from '@/components/ui/calendar';
-import { cn } from '@/lib/utils';
+import { Calendar as CalendarUI } from "@/components/ui/calendar";
+import { cn } from "@/lib/utils";
 
 export const Calendar = ({ selectedDate, onChange, daysWithTasks }) => {
   return (
