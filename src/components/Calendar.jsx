@@ -7,7 +7,7 @@ export const Calendar = ({ selectedDate, onChange }) => {
       mode="single"
       selected={selectedDate}
       onSelect={onChange}
-      className="rounded-md border"
+      className="rounded-md border border-indigo-200 p-3 bg-white shadow-md"
     />
   );
 };

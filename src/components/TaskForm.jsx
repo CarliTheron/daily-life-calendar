@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { PlusCircle } from 'lucide-react';
 
 export const TaskForm = ({ onAddTask }) => {
   const [title, setTitle] = useState('');
@@ -20,9 +21,12 @@ export const TaskForm = ({ onAddTask }) => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Enter a new task"
-        className="flex-grow"
+        className="flex-grow border-indigo-200 focus:ring-indigo-500"
       />
-      <Button type="submit">Add Task</Button>
+      <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700 text-white">
+        <PlusCircle className="h-4 w-4 mr-2" />
+        Add Task
+      </Button>
     </form>
   );
 };
