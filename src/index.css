@@ -74,3 +74,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Custom styles for the app */
+body {
+  @apply antialiased;
+}
+
+.app-container {
+  @apply max-w-md mx-auto;
+}

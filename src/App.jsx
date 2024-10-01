@@ -1,24 +1,28 @@
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { navItems } from "./nav-items";
-
-const queryClient = new QueryClient();
+import Login from './components/Login';
+import MainScreen from './components/MainScreen';
+import Info from './components/Info';
+import DetailCard from './components/DetailCard';
+import Profile from './components/Profile';
+import DensityMap from './components/DensityMap';
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <BrowserRouter>
-        <Routes>
-          {navItems.map(({ to, page }) => (
-            <Route key={to} path={to} element={page} />
-          ))}
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <TooltipProvider>
+    <Toaster />
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/main" element={<MainScreen />} />
+        <Route path="/info" element={<Info />} />
+        <Route path="/detail" element={<DetailCard />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/density-map" element={<DensityMap />} />
+      </Routes>
+    </Router>
+  </TooltipProvider>
 );
 
 export default App;
